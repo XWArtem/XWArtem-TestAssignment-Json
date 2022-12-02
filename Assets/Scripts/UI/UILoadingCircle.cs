@@ -42,25 +42,18 @@ public class UILoadingCircle : MonoBehaviour
 
     private IEnumerator PlayAnimation()
     {
-        while (true)
+        int i = 0;
+        while (_animationIsActive)
         {
-            for (int i = 0; i < _loadingCircleFrames.Count; i++)
-            {
-                if (_animationIsActive)
-                {
-                    _loadingCircleFrames[i].SetActive(true);
+            i = i % _loadingCircleFrames.Count;
 
-                    yield return new WaitForSeconds(.1f);
+            _loadingCircleFrames[i].SetActive(true);
 
-                    _loadingCircleFrames[i].SetActive(false);
+            yield return new WaitForSeconds(.1f);
 
-                    if (i == _loadingCircleFrames.Count - 1)
-                    {
-                        i = 0;
-                    }
-                }
-                else yield return null;
-            }
+            _loadingCircleFrames[i].SetActive(false);
+            i++;
         }
+        yield return null;
     }
 }

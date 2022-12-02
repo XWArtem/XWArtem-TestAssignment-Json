@@ -8,7 +8,7 @@ public class UIUserInfoDisplayer : MonoBehaviour
     [SerializeField] private GameObject _panelParent;
 
     public void DisplayUserInfo(UserBase[] userList)
-    {        
+    {
         for (int i = 0; i < userList.Length; i++) 
         {
             var panelUserInstance = Instantiate(_panelUser,

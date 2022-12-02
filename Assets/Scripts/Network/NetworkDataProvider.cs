@@ -7,7 +7,7 @@ public class NetworkDataProvider : MonoBehaviour
 {
     public static Action<bool> LoadingStarted;
     public UsersList _usersList = new UsersList();
-    [SerializeField] JsonReader _jsonReader;
+    [SerializeField] NetworkDataReader _jsonReader;
 
     private void Start()
     {
@@ -28,9 +28,14 @@ public class NetworkDataProvider : MonoBehaviour
             }
             else
             {
-                _usersList = JsonUtility.FromJson<UsersList>("{\"Users\":" + webRequest.downloadHandler.text + "}");
-                _jsonReader.ParseJsonFromURI(_usersList);
+                ParseJsonFromURI(webRequest);
             }
         }
+    }
+
+    private void ParseJsonFromURI(UnityWebRequest webRequest)
+    {
+        _usersList = JsonUtility.FromJson<UsersList>("{\"Users\":" + webRequest.downloadHandler.text + "}");
+        _jsonReader.ReadUserInfo(_usersList);
     }
 }
